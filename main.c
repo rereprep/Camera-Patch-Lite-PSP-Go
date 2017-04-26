@@ -422,12 +422,12 @@ int sceCtrlReadBufPatched(SceCtrlData *pad, int nBufs, int a2, int mode) {
 	/// Set k1 to zero to allow all buttons 
 	int k1 = pspSdkSetK1(0);
 
-	/// Read PSP hardware buttons 
-	sceCtrlSetSamplingMode(PSP_CTRL_MODE_ANALOG);
+	/// Read PSP hardware buttons (not needed for PSP GO as we will read from Dualshock 3) 
+	/// sceCtrlSetSamplingMode(PSP_CTRL_MODE_ANALOG);
 	
-	/// Call function with new arguments 
-	int res = sceCtrlReadBuf((SceCtrlData *)buffer, nBufs, a2, mode); 
-	//int res = sceCtrlReadBuf((SceCtrlData *)buffer, nBufs, 1, mode | 4);	//extended mode
+	/// Call function with new arguments to read from Dualshock 3
+	//int res = sceCtrlReadBuf((SceCtrlData *)buffer, nBufs, a2, mode); //we are not reading from pad
+	int res = sceCtrlReadBuf((SceCtrlData *)buffer, nBufs, 1, mode | 4);	//extended mode
 	
 	/// Copy buffer to pad
 	int i; 
